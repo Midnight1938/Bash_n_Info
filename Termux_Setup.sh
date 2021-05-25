@@ -12,14 +12,14 @@ pkg update && pkg update -y
 
 ## * Termux access to global storage
 termux-setup-storage
-pkg install nnn wget zsh git ffmpeg nano -y
+pkg install nnn wget zsh ffmpeg nano -y
 pkg install python termux-exec -y
 pip install youtube-dl -U
 
 #? Settingup the .zshrc
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
-cp .zshrc > nzshrc
-sed '10c\'"Set ZSH_THEME="powerlevel10k/powerlevel10k" nzshrc > .zshrc
+cp /data/data/com.termux/files/home/.oh-my-zsh > nzshrc
+sed '10c\'"Set ZSH_THEME="powerlevel10k/powerlevel10k" nzshrc > /data/data/com.termux/files/home/.oh-my-zsh
 echo "alias Dat='export PATH="$PATH:/data/data/com.termux/files/home/.dat/releases/dat-14.0.2-linux-x64"' >> .zshrc
 rm nzshrc
 
