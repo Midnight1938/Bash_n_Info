@@ -11,7 +11,6 @@ else
 pkg update && pkg update -y
 
 ## * Termux access to global storage
-termux-setup-storage
 pkg install nnn wget zsh ffmpeg nano -y
 pkg install python termux-exec -y
 pip install youtube-dl -U
@@ -30,5 +29,6 @@ export PATH="$PATH:/data/data/com.termux/files/home/.dat/releases/dat-14.0.2-lin
 
 ## * Settingup ZSH
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+termux-setup-storage
 
 fi
