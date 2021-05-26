@@ -18,7 +18,6 @@ pip install youtube-dl -U
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 cp .zshrc > nzshrc
 sed '10c\'""ZSH_THEME="powerlevel10k/powerlevel10k"" nzshrc > .zshrc
-echo "alias Dat= ".dat/releases/dat-14.0.2-linux-x64/dat"" >> .zshrc
 rm nzshrc
 
 #! Dat function
