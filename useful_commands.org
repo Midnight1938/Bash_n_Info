@@ -29,3 +29,14 @@ Exec=/path/to/executable
 Name=Name of Application
 Icon=/path/to/icon
 #+end_src
+* Find files with the text
+#+begin_src bash
+find /path/to/search -type f -exec grep -l "your-search-string" {} \;
+#+end_src
+
+* Move and stuff filesthat are of the form
+#+begin_src bash
+FN1 =  Current Name
+FN2 = New Name
+while read FN1; do read FN2; mv $FN1 $FN2; done < Text.list
+#+end_src
