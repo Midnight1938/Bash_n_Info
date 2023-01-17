@@ -34,9 +34,63 @@ Icon=/path/to/icon
 find /path/to/search -type f -exec grep -l "your-search-string" {} \;
 #+end_src
 
-* Move and stuff filesthat are of the form
+* Move and stuff files that are of the form one place to another
 #+begin_src bash
 FN1 =  Current Name
 FN2 = New Name
 while read FN1; do read FN2; mv $FN1 $FN2; done < Text.list
 #+end_src
+
+* Add new ssh
+#+begin_src bash
+ssh-keygen -t ed25519 -C "name@domain.com"
+ssh-add ~/.ssh/id_ed25519
+#+end_src
+
+* Wifi Passwors and such
+#+begin_src bash
+cd /etc/NetworkManager/system-connections
+#+end_src
+* To find words in a file
+Do the following:
+#+begin_src bash
+grep -rnw '/path/to/somewhere/' -e 'pattern'
+#+end_src
+- ~-r~ or ~-R~ is recursive.
+- ~-n~ is line number.
+- ~-w~ stands for match the whole word.
+- ~-l~ (lower-case L) can be added to just give the file name of matching files.
+- ~-e~ is the pattern used during the search
+
+** Along with these, ~--exclude~, ~--include~, ~--exclude-dir~ flags could be used for efficient searching:
+
+- This will only search through those files which have .c or .h extensions:
+  #+begin_src bash
+  grep --include=\*.{c,h} -rnw '/path/to/somewhere/' -e "pattern"
+  #+end_src
+- This will exclude searching all the files ending with .o extension:
+  #+begin_src bash
+  grep --exclude=\*.o -rnw '/path/to/somewhere/' -e "pattern"
+  #+end_src
+
+- For directories it's possible to exclude one or more directories using the --exclude-dir parameter.
+  For example, this will exclude the dirs dir1/, dir2/ and all of them matching *.dst/
+  #+begin_src bash
+  grep --exclude-dir={dir1,dir2,*.dst} -rnw '/path/to/search/' -e "pattern"
+  #+end_src
+* Fix a read-only volume/drive error
+It happens because, either you failed mount it in a place that your system does by default, or a place you can edit (consult nautilus file manager for ideal mount point)
++ Remount the system to its proper place if you havent. In fedora it is ~/run/media/<userName>/<volName>~
++ Running the ntfs fixer solves the problem for most file systems using ntfs,
+  Check the /Device/ and /Type/ using ~sudo fdisk -l~. If its not ntfs, idc I do.
+
+1. Unmount the system. For me its ~/dev/sda1~
+   #+begin_src bash
+sudo umount /dev/sda1
+   #+end_src
+2. Run ntfsfix to fix all issues, and reboot to be extra sure.
+#+begin_src bash
+sudo ntfsfix /dev/sdxY # x being 'a' for most ppl and Y depends on your volume/disk
+reboot
+#+end_src
+3. Allow the system to mount according to your setting, or mount manually.
