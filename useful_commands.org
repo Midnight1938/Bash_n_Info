@@ -2,8 +2,10 @@
 #+author: midnight1938
 
 * Download parts of a video with yt-dlp
+- ~bv**ba~ means best video best audio
+- hh:mm:ss
 #+begin_src bash
-yt-dlp -f 'ba' -x --postprocessor-args "-ss 00:00:00 -to 00:00:00" "https://youtu.be"
+yt-dlp -f 'bv**ba' -x --postprocessor-args "-ss 00:00:00 -to 00:00:00" "https://youtu.be"
 #+end_src
 Add ~--audio-format mp3/wav~ for audio version
 
@@ -94,3 +96,16 @@ sudo ntfsfix /dev/sdxY # x being 'a' for most ppl and Y depends on your volume/d
 reboot
 #+end_src
 3. Allow the system to mount according to your setting, or mount manually.
+
+#  LocalWords:  ntfsfix
+* Plot System Bootup Blame
+#+begin_src bash
+systemd-analyze plot > system-blame-graph.svg
+#+end_src
+* FFMPEG
+** FFMPEG mp4 to gif
+#+begin_src bash
+ffmpeg -ss 30 -t 3 -i input.mp4 \
+    -vf "fps=10,scale=320:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
+    -loop 0 output.gif
+#+end_src
