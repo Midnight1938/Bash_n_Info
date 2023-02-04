@@ -4,15 +4,20 @@
 * Download parts of a video with yt-dlp
 - ~bv**ba~ means best video best audio
 - hh:mm:ss
+** Audio
 #+begin_src bash
-yt-dlp -f 'bv**ba' -x --postprocessor-args "-ss 00:00:00 -to 00:00:00" "https://youtu.be"
+yt-dlp -f 'ba' -x --postprocessor-args "-ss 00:00:00 -to 00:00:00" "https://youtu.be"
 #+end_src
 Add ~--audio-format mp3/wav~ for audio version
+** Video Type
+#+begin_src bash
+yt-dlp -f 'bv' --download-sections "*0:00:18-0:00:00" --force-keyframes-at-cuts "https://youtu.be"
+#+end_src
 
 * View network devices
 #+begin_src bash
 cd /etc/NetworkManager/system-connections/
-#+end_src
+#+end_src1
 
 * A desktop file
 They are in either of the two:
@@ -108,4 +113,8 @@ systemd-analyze plot > system-blame-graph.svg
 ffmpeg -ss 30 -t 3 -i input.mp4 \
     -vf "fps=10,scale=320:-1:flags=lanczos,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" \
     -loop 0 output.gif
+#+end_src
+** Cut a video
+#+begin_src bash
+ffmpeg -i input.mp4 -ss 00:05:10 -to 00:15:30 -c:v copy -c:a copy output2.mp4
 #+end_src
