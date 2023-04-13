@@ -118,3 +118,9 @@ ffmpeg -ss 30 -t 3 -i input.mp4 \
 #+begin_src bash
 ffmpeg -i input.mp4 -ss 00:05:10 -to 00:15:30 -c:v copy -c:a copy output2.mp4
 #+end_src
+** Changing mp4 to webm
+#+begin_src bash
+ffmpeg  -i file.mp4  -b:v 0  -crf 30  -pass 1  -an -f webm -y /dev/null && \
+ffmpeg  -i file.mp4  -b:v 0  -crf 30  -pass 2  output.webm
+#+end_src
+
